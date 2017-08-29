@@ -17,17 +17,8 @@
 # exit on any error
 set -e
 
-ROLE=$1
+docker run --net=host -e 'CONSUL_LOCAL_CONFIG={"skip_leave_on_interrupt": true}' -e 'CONSUL_ALLOW_PRIVILEGED_PORTS=' consul agent -server -bind=10.9.8.7 -retry-join=10.9.8.6 -bootstrap-expect=2 -dns-port=53 -enable-script-checks
 
-source $(dirname "${BASH_SOURCE}")/util.sh
+docker run -d -p 8080:8080 zreigz/hostname
 
-install_minimal_dependencies
-
-install_docker
-
-
-hostnamectl set-hostname '$(ROLE)'
-
-/home/vagrant/${ROLE}.sh
-
-
+curl -X PUT -d @hostname.json localhost:8500/v1/agent/service/register
