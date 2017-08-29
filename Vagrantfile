@@ -33,6 +33,8 @@ def configure_vm(vm, **opts)
     vm.provision "file", source: "util.sh", destination: "util.sh"
     vm.provision "file", source: "cluster.sh", destination: "cluster.sh"
     vm.provision "file", source: "hostname.json", destination: "hostname.json"
+    vm.provision "file", source: "master.sh", destination: "master.sh"
+    vm.provision "file", source: "node.sh", destination: "node.sh"
 end
 
 Vagrant.configure(2) do |config|
@@ -44,6 +46,9 @@ Vagrant.configure(2) do |config|
         configure_vm(master.vm, private_ip: "10.9.8.7")
         master.vm.provision "shell", inline: "IP_ADDRESS=10.9.8.7 ./cluster.sh master"
     end
+
+
+
 
 
     # ---------------------------------------------------------------------------------------------
