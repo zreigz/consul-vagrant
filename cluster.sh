@@ -31,4 +31,4 @@ hostnamectl set-hostname '$(ROLE)'
 curl -X PUT -d @hostname.json localhost:8500/v1/agent/service/register
 
 
-docker run --net=host -e 'CONSUL_LOCAL_CONFIG={"skip_leave_on_interrupt": true}' -e 'CONSUL_ALLOW_PRIVILEGED_PORTS=' consul agent -server -bind=10.9.8.7 -retry-join=10.9.8.6;10.9.8.5 -bootstrap-expect=2 -dns-port=53 -enable-script-checks
+docker run --net=host -e 'CONSUL_LOCAL_CONFIG={"skip_leave_on_interrupt": true}' -e 'CONSUL_ALLOW_PRIVILEGED_PORTS=' consul agent -server -bind=10.9.8.7 -retry-join=10.9.8.6 -bootstrap-expect=2 -dns-port=53 -enable-script-checks
